@@ -39,13 +39,13 @@ resource "aws_ssm_parameter" "secret_key" {
 
 module "cognito_admin" {
   source               = "./modules/cognito_admin"
-  count                = contains(var.permissions, 'cognito_admin') ? 1 : 0
+  count                = contains(var.permissions, "cognito_admin") ? 1 : 0
   cognito_user_pool_id = var.cognito_user_pool_id
   cognito_users        = var.cognito_users
 }
 
 resource "aws_iam_user_policy" "cognito_admin" {
-  count  = contains(var.permissions, 'cognito_admin') && var.export_credentials ? 1 : 0
+  count  = contains(var.permissions, "cognito_admin") && var.export_credentials ? 1 : 0
   user   = aws_iam_user.client.0.name
   policy = module.cognito_admin.0.policy
 }
