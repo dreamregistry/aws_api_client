@@ -1,7 +1,7 @@
 variable "permissions" {
   type        = list(string)
   default     = []
-  description = "List of permissions to grant to the user: cognito_admin"
+  description = "List of permissions to grant to the user: cognito_admin, location_api"
 }
 
 variable "cognito_user_pool_id" {
@@ -22,4 +22,8 @@ variable "export_credentials" {
   type        = bool
   description = "Whether to export the credentials of the user"
   default     = false
+}
+
+variable "place_location_index" {
+  description = "The name of the place location index"
 }

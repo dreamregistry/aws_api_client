@@ -49,3 +49,15 @@ resource "aws_iam_user_policy" "cognito_admin" {
   user   = aws_iam_user.client.0.name
   policy = module.cognito_admin.0.policy
 }
+
+module "location_api" {
+  source               = "./modules/location_api"
+  count                = contains(var.permissions, "location_api") ? 1 : 0
+  place_location_index = var.place_location_index
+}
+
+resource "aws_iam_user_policy" "location_api" {
+  count  = contains(var.permissions, "location_api") && var.export_credentials ? 1 : 0
+  user   = aws_iam_user.client.0.name
+  policy = module.location_api.0.policy
+}

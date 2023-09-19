@@ -26,3 +26,11 @@ output "USER_POOL_ID" {
   description = "The ID of the user pool"
   value       = contains(var.permissions, "cognito_admin") ? var.cognito_user_pool_id : null
 }
+
+output "IAM_POLICY_LOCATION_API" {
+  value = contains(var.permissions, "location_api") ? module.location_api.0.policy : null
+}
+
+output "PLACE_LOCATION_INDEX" {
+  value = contains(var.permissions, "location_api") ? module.location_api.0.place_location_index : null
+}
