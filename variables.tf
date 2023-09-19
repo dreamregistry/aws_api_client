@@ -1,6 +1,6 @@
 variable "permissions" {
-  type        = set(string)
-  default     = set([])
+  type        = list(string)
+  default     = []
   description = "List of permissions to grant to the user: cognito_admin"
 }
 
