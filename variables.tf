@@ -1,7 +1,7 @@
 variable "permissions" {
   type        = list(string)
   default     = []
-  description = "List of permissions to grant to the user: cognito_admin, location_api"
+  description = "List of permissions to grant to the user: cognito_admin, location_api, s3_bucket"
 }
 
 variable "cognito_user_pool_id" {
@@ -26,4 +26,9 @@ variable "export_credentials" {
 
 variable "place_location_index" {
   description = "The name of the place location index"
+}
+
+variable "s3_bucket_name_prefix" {
+  description = "The prefix of the S3 bucket name"
+  default     = ""
 }

@@ -34,3 +34,7 @@ output "IAM_POLICY_LOCATION_API" {
 output "PLACE_LOCATION_INDEX" {
   value = contains(var.permissions, "location_api") ? module.location_api.0.place_location_index : null
 }
+
+output "IAM_POLICY_S3_BUCKET" {
+  value = contains(var.permissions, "s3_bucket") ? module.s3_bucket.0.policy : null
+}
