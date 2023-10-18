@@ -1,6 +1,4 @@
 terraform {
-  backend "s3" {}
-
   required_providers {
     aws = {
       source  = "registry.terraform.io/hashicorp/aws"
