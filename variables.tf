@@ -7,6 +7,7 @@ variable "permissions" {
 variable "cognito_user_pool_id" {
   type        = string
   description = "The name of the user pool to create the app client in"
+  default     = null
 }
 
 variable "cognito_users" {
@@ -26,6 +27,7 @@ variable "export_credentials" {
 
 variable "place_location_index" {
   description = "The name of the place location index"
+  default     = null
 }
 
 variable "s3_bucket_name_prefix" {
