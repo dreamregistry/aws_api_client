@@ -14,18 +14,18 @@ terraform {
 data "aws_caller_identity" "current" {}
 
 resource "random_pet" "role_name_suffix" {
-    length    = 2
-    separator = ""
+  length    = 2
+  separator = ""
 }
 
 resource "aws_iam_role" "liveness_session" {
   name = "LivenessSessionRole-${random_pet.role_name_suffix.id}"
 
   assume_role_policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
+        Effect    = "Allow"
         Principal = {
           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         }
@@ -40,7 +40,7 @@ resource "aws_iam_policy" "rekognition_policy" {
   description = "Policy to allow rekognition StartFaceLivenessSession action"
 
   policy = jsonencode({
-    Version = "2012-10-17"
+    Version   = "2012-10-17"
     Statement = [
       {
         Effect   = "Allow"
@@ -63,7 +63,18 @@ data "aws_iam_policy_document" "permissions" {
       "sts:AssumeRole"
     ]
     resources = [
-        aws_iam_role.liveness_session.arn
+      aws_iam_role.liveness_session.arn
+    ]
+  }
+  statement {
+    effect  = "Allow"
+    actions = [
+      "rekognition:CreateFaceLivenessSession",
+      "rekognition:GetFaceLivenessSessionResults",
+      "rekognition:CompareFaces"
+    ]
+    resources = [
+      "*"
     ]
   }
 }
