@@ -63,8 +63,8 @@ resource "aws_iam_user_policy" "location_api" {
 }
 
 module "s3_bucket" {
-  source = "./modules/s3_bucket"
-  count  = contains(var.permissions, "s3_bucket") ? 1 : 0
+  source      = "./modules/s3_bucket"
+  count       = contains(var.permissions, "s3_bucket") ? 1 : 0
   name_prefix = var.s3_bucket_name_prefix
 }
 
@@ -72,4 +72,9 @@ resource "aws_iam_user_policy" "s3_bucket" {
   count  = contains(var.permissions, "s3_bucket") && var.export_credentials ? 1 : 0
   user   = aws_iam_user.client.0.name
   policy = module.s3_bucket.0.policy
+}
+
+module "rekognition" {
+  source = "./modules/rekognition"
+  count  = contains(var.permissions, "rekognition") ? 1 : 0
 }
