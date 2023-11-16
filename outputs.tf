@@ -42,3 +42,7 @@ output "IAM_POLICY_S3_BUCKET" {
 output "S3_BUCKET_NAME" {
   value = contains(var.permissions, "s3_bucket") ? module.s3_bucket.0.bucket_name : null
 }
+
+output "REKOGNITION_LIVENESS_ROLE_ARN" {
+  value = contains(var.permissions, "rekognition") ? module.rekognition.0.liveness_session_role_arn : null
+}
