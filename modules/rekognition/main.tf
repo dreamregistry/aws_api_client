@@ -27,7 +27,7 @@ resource "aws_iam_role" "liveness_session" {
       {
         Effect = "Allow"
         Principal = {
-          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:*"
+          AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         }
         Action = "sts:AssumeRole"
       }
@@ -54,4 +54,16 @@ resource "aws_iam_policy" "rekognition_policy" {
 resource "aws_iam_role_policy_attachment" "rekognition_attach" {
   role       = aws_iam_role.liveness_session.name
   policy_arn = aws_iam_policy.rekognition_policy.arn
+}
+
+data "aws_iam_policy_document" "permissions" {
+  statement {
+    effect  = "Allow"
+    actions = [
+      "sts:AssumeRole"
+    ]
+    resources = [
+        aws_iam_role.liveness_session.arn
+    ]
+  }
 }
