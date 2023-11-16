@@ -78,3 +78,9 @@ module "rekognition" {
   source = "./modules/rekognition"
   count  = contains(var.permissions, "rekognition") ? 1 : 0
 }
+
+resource "aws_iam_user_policy" "rekognition" {
+    count  = contains(var.permissions, "rekognition") && var.export_credentials ? 1 : 0
+    user   = aws_iam_user.client.0.name
+    policy = module.rekognition.0.policy
+}
